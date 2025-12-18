@@ -27,8 +27,24 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        Global Header
         {children}
+        Global Footer
       </body>
     </html>
   );
 }
+
+// Make the following route path
+// /practice/users
+// -> Display "Users Page" text on the page
+// /practice/users/settings
+// -> Display "User Setting" text on the page
+// /practice/users/settings/privacy
+// -> Display "User Privacy Page" text on the page
+// /practice/users/data/[id]
+// -> Display "User Data Page: {id}" text on the page
+// /practice/users/data/[id]/edit
+// -> Display "Edit User Data Page: {id}" text on the page
+// Make layouts for /practice/users 
+// to include User Header and User Footer
