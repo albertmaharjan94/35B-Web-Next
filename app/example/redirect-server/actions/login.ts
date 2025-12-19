@@ -6,9 +6,9 @@ export async function loginAction(username: string){
         throw new Error("Username is required");
     }
     if(username == "admin"){
-        return redirect("/example/input-form");
+        redirect("/example/input-form");
     }else{
-        return redirect("/example/state");
+        redirect("/example/state");
     }
 }
 

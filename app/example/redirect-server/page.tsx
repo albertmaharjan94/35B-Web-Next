@@ -18,7 +18,7 @@ export default function Page() {
                 await loginAction(username);
             }catch(err: Error | any){
                 console.log(err)
-                // alert(err.message ??  "Form error" )
+                alert(err.message ??  "Form error" )
             }
         });
         // navigation will be pending and won't block the ui
