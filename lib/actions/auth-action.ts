@@ -1,6 +1,6 @@
 // server side processesing
 "use server";
-import { login, register } from "../api/auth";
+import { login, register, whoami } from "../api/auth";
 import { setAuthToken, setUserData } from "../cookie";
 export const handleRegister = async (formData: any) => {
     try {
@@ -37,5 +37,20 @@ export const handleLogin = async (formData: any) => {
         return { success: false, message: res.message || "Login failed" };
     } catch (err: Error | any) {
         return { success: false, message: err.message || "Login failed" };
+    }
+}
+
+export const handleWhoAmI = async () => {
+    try {
+        const res = await whoami();
+        if (res.success) {
+            return {
+                success: true,
+                data: res.data,
+            };
+        }
+        return { success: false, message: res.message || "Whoami failed" };
+    }catch (err: Error | any) {
+        return { success: false, message: err.message || "Whoami failed" };
     }
 }

@@ -28,3 +28,15 @@ export const login = async(loginData: any) => {
         )
     }
 }
+export const whoami = async() => {
+    try{
+        const response = await axios.get(API.AUTH.WHOAMI);
+        return response.data;
+    }catch(err: Error | any){
+        throw new Error(
+            err.response?.data?.message  // backend error message
+            || err.message // general axios error message
+            || "Whoami failed" // fallback message
+        )
+    }
+}
