@@ -1,6 +1,7 @@
 // server side processesing
 "use server";
-import { login, register, whoami } from "../api/auth";
+import { revalidatePath } from "next/cache";
+import { login, register, updateProfile, whoami } from "../api/auth";
 import { setAuthToken, setUserData } from "../cookie";
 export const handleRegister = async (formData: any) => {
     try {
@@ -52,5 +53,23 @@ export const handleWhoAmI = async () => {
         return { success: false, message: res.message || "Whoami failed" };
     }catch (err: Error | any) {
         return { success: false, message: err.message || "Whoami failed" };
+    }
+}
+
+export const handleUpdateProfile = async(formData: any) => {
+    try{
+        const res = await updateProfile(formData);
+        if(res.success){
+            await setUserData(res.data); // update cookie user data
+            revalidatePath('/user/profile'); // revalidate profile page/ new data
+            return {
+                success: true,
+                data: res.data,
+                message: "Profile updated successfully"
+            };
+        }
+        return { success: false, message: res.message || "Update profile failed" };
+    }catch(err: Error | any){
+        return { success: false, message: err.message || "Update profile failed" };
     }
 }
